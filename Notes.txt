@@ -1,0 +1,61 @@
+Inventory Management System
+
+Notes
+Pat Kozlowski
+25-Nov-2022
+
+What I Did
+
+	1. Used GitHub to clone "https://github.com/valpokoz/Development-Project-CSharp"
+	2. Reviewed Development%20Project%20Specifications.pdf
+	3. Reviewed most code: sl and CS. Made some notes
+	4. Reviewed Development%20Project%20Specifications.pdf again and made some notes.
+	5. Notes on first step: Database
+	6. Project steps or breakdown (multiple people working each step)
+
+	!!! I wrote zero code !!!
+
+Notes on code:
+	Liked that DateTime default values was in UTC. Greate for having same instance of software across multiple time zones.
+	Like referential integrity in database with cascade delete.
+
+	Why not use explicit type SqlConnection, SqlTransaction, etc?  (used generic var in some cases)
+
+Notes on requirements and implementation:
+	Inventory Management System
+
+	Product - arbitrary MetaData
+		- Name, count, category (non-arbitrary) - main product table
+			- active/non-active column
+		- category table or is this an attribute??? FK to product table 
+			- multiple - PK is FK product + category ID
+		- sku, color, brand - attribute tabel - FK to product table  - always varchar type???
+			- multiple - PK is FK product + attribute ID
+		- hierarchy - add to product table parent product. if null, top level product 
+		- undo transaction - just latest or multiple? how far back in time? if say 5 trans, remove trans 3 and redo 4 and 5? 
+			- transaction table - done/not done column or a "done transaction"
+			- a "who" column
+		- all date/time UTC
+
+Database
+	Use stored procedures for all database interaction
+	if changes are made to database, code does not need to change
+	I believe for testing purposes, easier to test the stored procedures
+	security: web api that can hide location of databases and structure of database
+	downside: need database person to handle new database requests
+	Interface can then bee on different OS and different language
+
+Step 1:
+	Database - tables, dependencies, primary key, foreign key, functions, store procedures, views
+Step 2:
+	CS code to interface to database.
+step 3:
+	User interface
+
+Question: Where to put limit/sanity checks on parameters? daatabase or code or both. I believe at a minimum in the database. No matter what, do not want data to be messed up.
+
+There are parts of the grading that I have not implemented before (used existing, yes)
+	- Use of Interfaces and Dependenct Injection
+	- abstractions
+	- extensions via the open-closed principal
+	- not much use of asynchronous methods
